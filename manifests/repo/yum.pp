@@ -3,7 +3,7 @@ class ansible::repo::yum (
   Integer $epel_version
 ) {
 
-  if ! defined(Yunrepo['epel']) {
+  if ! defined(Yumrepo['epel']) {
     yumrepo { 'epel':
       ensure         => 'present',
       descr          => "Extra Packages for Enterprise Linux ${epel_version} - \$basearch",
