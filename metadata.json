@@ -8,11 +8,11 @@
   "project_page": "https://github.com/otherskins/puppet-ansible",
   "issues_url": "https://github.com/otherskins/puppet-ansible/issues",
   "tags": [
-    "ansible", 
-    "puppet", 
-    "ansible Inventory", 
-    "ansible.cfg", 
-    "puppet-agent", 
+    "ansible",
+    "puppet",
+    "ansible Inventory",
+    "ansible.cfg",
+    "puppet-agent",
     "hiera 5"
   ],
   "dependencies": [
@@ -54,7 +54,11 @@
     {
       "operatingsystem": "Fedora",
       "operatingsystemrelease": [
-        "26"
+        "26",
+        "27",
+        "28",
+        "29",
+        "30"
       ]
     },
     {

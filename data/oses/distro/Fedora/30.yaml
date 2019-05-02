@@ -1,0 +1,3 @@
+---
+ansible::repo::yum::epel_version: 0 # at fedora 30 epel caused conflicts
+...
