@@ -1,4 +1,4 @@
-# @api private 
+# @api private
 # This class handles ansible packages. Avoid modifying private classes.
 
 class ansible::install {
@@ -16,6 +16,8 @@ class ansible::install {
       contain ansible::repo::apt
 
     }
+
+    'Archlinux': { }
 
     default: { fail('Your operating system is not supported.') }
 
