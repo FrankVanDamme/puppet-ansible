@@ -1,11 +1,16 @@
 require 'spec_helper'
 
 describe 'ansible::hosts' do
-  let(:title) { 'webservers' }
+  on_supported_os.each do |os, facts|
+    context "on #{os}" do
+      let(:title) { 'webservers' }
+      let(:facts)  { facts }
+      let(:params) { { 'entrys' => ['192.168.0.1', '192.168.0.2'] } }
+      let(:pre_condition) { 'include ::ansible' }
 
-  let(:params) { { 'entrys' => ['192.168.0.1', '192.168.0.2'] } }
+      it { is_expected.to contain_concat__fragment('webservers') }
 
-  it { is_expected.to contain_concat__fragment('webservers') }
-
-  it { should compile }
+      it { should compile }
+    end
+  end
 end
