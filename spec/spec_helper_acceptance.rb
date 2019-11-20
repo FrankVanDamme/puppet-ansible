@@ -10,7 +10,7 @@ UNSUPPORTED_PLATFORMS = ['windows', 'Darwin']
 
 #run_puppet_install_helper
 install_puppet_on(hosts)
-install_ca_certs unless ENV['PUPPET_INSTALL_TYPE'] =~ %r{/pe/i}
+# install_ca_certs unless ENV['PUPPET_INSTALL_TYPE'] =~ %r{/pe/i}
 install_module_on(hosts)
 install_module_dependencies_on(hosts)
 
