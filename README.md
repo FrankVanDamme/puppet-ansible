@@ -16,7 +16,7 @@
 
 ## Description
 
-The ansible module installs and configures the Ansible across a range of operating systems and distributions.
+The ansible module installs and configures the Ansible across a range of operating systems and distributions. It is based upon the original work at [otherskins](git@github.com:saz/puppet-sudo.git).
 
 ## Setup
 
@@ -1366,7 +1366,7 @@ This module has been tested on:
   * Centos 6
   * Centos 7
   * Ubuntu 16.04
-  * Ubuntu 14.04 
+  * Ubuntu 14.04
   * Debian 8
   * Debian 9
   * Fedora 26
