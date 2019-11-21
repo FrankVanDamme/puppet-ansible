@@ -9,9 +9,10 @@ hierarchy:
   - name: "oses"
     paths:
      - "oses/distro/%{facts.os.name}/%{facts.os.release.major}.yaml"
+     - "oses/distro/%{facts.os.name}/default.yaml"
      - "oses/family/%{facts.os.family}.yaml"
-     
+
   - name: "common"
     path: "common.yaml"
-    
+
 ...

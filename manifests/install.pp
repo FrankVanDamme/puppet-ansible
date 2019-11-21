@@ -1,23 +1,35 @@
-# @api private 
+# @api private
 # This class handles ansible packages. Avoid modifying private classes.
 
 class ansible::install {
 
   case $facts['operatingsystem'] {
 
-    'RedHat', 'CentOS', 'OracleLinux', 'Fedora': {
+    'RedHat', 'CentOS', 'OracleLinux': {
 
-      contain ansible::repo::yum
+      unless $ansible::use_dist_repo {
+        contain ansible::repo::yum
+      }
+
+    }
+
+    'Fedora': {
+
+      unless $ansible::use_dist_repo {
+        contain ansible::repo::yum
+      }
 
     }
 
     'Debian', 'Ubuntu': {
 
-      contain ansible::repo::apt
+      unless $ansible::use_dist_repo {
+        contain ansible::repo::apt
+      }
 
     }
 
-    default: { fail('Your operating system is not supported.') }
+    default: { fail("Your operating system \"${facts['operatingsystem']}\"is not supported.") }
 
   }
 

@@ -369,6 +369,8 @@
 #will fall back to ssh or paramiko (depending on your default connection
 #setting) to try and start the accelerate daemon remotely. The default setting
 #is 1.0 seconds.
+#  @param [Boolean] use_dist_repo - defaults to false for backward compatability.
+#When true does not manage any special repos.
 #
 #  Variables
 #  ----------
@@ -754,6 +756,7 @@ String $package_name,
 String $user,
 String $group,
 String $ensure,
+Boolean $use_dist_repo = false,
 ) {
 
   contain ::ansible::install

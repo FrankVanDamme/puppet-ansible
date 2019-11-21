@@ -1,0 +1,4 @@
+---
+ansible::repo::yum::epel_version: 7
+ansible::use_dist_repo: false
+...

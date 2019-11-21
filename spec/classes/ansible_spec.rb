@@ -19,8 +19,10 @@ describe 'ansible' do
 
         case facts[:osfamily]
         when 'RedHat'
-          it { is_expected.to contain_class('ansible::repo::yum') }
-          it { is_expected.to contain_yumrepo('epel') }
+          if facts[:operatingsystemrelease].to_i < 27
+            it { is_expected.to contain_class('ansible::repo::yum') }
+            it { is_expected.to contain_yumrepo('epel') }
+          end
         when 'Debian'
           it { is_expected.to contain_class('ansible::repo::apt') }
           it { is_expected.to contain_apt__source('ansible_repo') }
