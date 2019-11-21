@@ -79,6 +79,13 @@
         "16.04",
         "18.04"
       ]
+    },
+    {
+      "operatingsystem": "Archlinux",
+      "operatingsystemrelease": [
+        "5.2",
+        "5.3"
+      ]
     }
   ]
 }
