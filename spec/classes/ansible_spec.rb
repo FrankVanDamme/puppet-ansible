@@ -16,6 +16,15 @@ describe 'ansible' do
 
       describe 'ansible::install' do
         it { is_expected.to contain_package('ansible') }
+
+        case facts[:osfamily]
+        when 'RedHat'
+          it { is_expected.to contain_class('ansible::repo::yum') }
+          it { is_expected.to contain_yumrepo('epel') }
+        when 'Debian'
+          it { is_expected.to contain_class('ansible::repo::apt') }
+          it { is_expected.to contain_apt__source('ansible_repo') }
+        end
       end
 
       describe 'ansible::config' do
