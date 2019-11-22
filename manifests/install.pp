@@ -29,7 +29,7 @@ class ansible::install {
 
     }
 
-    'Archlinux': {}
+    'Archlinux', 'Manjarolinux': {}
 
     default: { fail("Your operating system \"${facts['operatingsystem']}\"is not supported.") }
 

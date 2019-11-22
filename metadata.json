@@ -81,11 +81,7 @@
       ]
     },
     {
-      "operatingsystem": "Archlinux",
-      "operatingsystemrelease": [
-        "5.2",
-        "5.3"
-      ]
+      "operatingsystem": "Archlinux"
     }
   ]
 }
