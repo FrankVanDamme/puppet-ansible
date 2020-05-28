@@ -759,6 +759,8 @@ String $ensure,
 Boolean $use_dist_repo = false,
 ) {
 
+  include ansible::user
+
   contain ::ansible::install
   contain ::ansible::config
 

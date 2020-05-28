@@ -13,6 +13,8 @@
 
 class ansible::target {
 
+  include ansible::user
+
   # Add this target to the "puppetized" inventory group on controllers.
   ansible::add_to_group { 'puppetized': }
 
