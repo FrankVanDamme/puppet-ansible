@@ -765,4 +765,11 @@ Boolean $use_dist_repo = false,
   Class['ansible::install']
   -> Class['ansible::config']
 
+  # Ensure the inventory file exists, and populate groups based on targets'
+  # declarations of the ansible::add_to_group defined type.
+  file { "${ansible::confdir}/hosts":
+    ensure  => file,
+  } ->
+  Ini_setting <<| tag == 'ansible::add_to_group' |>>
+
 }
