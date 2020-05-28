@@ -15,6 +15,12 @@ class ansible::target {
 
   include ansible::user
 
+  sshkeys::set_authorized_keys { "ansible":
+    keyname  => "ansible_$environment",
+    user     => "ansible",
+    ensure   => present,
+  }
+
   # Add this target to the "puppetized" inventory group on controllers.
   ansible::add_to_group { 'puppetized': }
 

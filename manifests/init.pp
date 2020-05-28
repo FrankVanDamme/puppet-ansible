@@ -767,6 +767,19 @@ Boolean $use_dist_repo = false,
   Class['ansible::install']
   -> Class['ansible::config']
 
+  # We use a wrapper: so as not to try to create two key pairs on the Puppet
+  # master with the same name in the same environment
+  @@sshkeys::create_key_wrapper{"ansible": 
+      key_name => "ansible_$environment",
+  }
+
+  # installs the generated public and private SSH key pair in the Ansible
+  # user's home directory
+  sshkeys::set_client_key_pair{"ansible@${hostname}":
+    keyname => "ansible_$environment",
+    user    => 'ansible',
+  }
+
   # Ensure the inventory file exists, and populate groups based on targets'
   # declarations of the ansible::add_to_group defined type.
   file { "${ansible::confdir}/hosts":
