@@ -769,7 +769,7 @@ Boolean $use_dist_repo = false,
 
   # We use a wrapper: so as not to try to create two key pairs on the Puppet
   # master with the same name in the same environment
-  @@sshkeys::create_key_wrapper{"ansible": 
+  @@sshkeys::create_key_wrapper{"ansible_$hostname": 
       key_name => "ansible_$environment",
   }
 
