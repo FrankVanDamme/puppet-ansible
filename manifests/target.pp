@@ -25,10 +25,20 @@ class ansible::target {
   ansible::add_to_group { 'puppetized': }
 
   # Make sure python is installed, or it's going to be a really short trip.
-  ensure_packages('python')
+
+  $python_package = $lsbdistcodename ? {
+      "Core"  => "python3",
+      default => "python",
+  }
+
+  ensure_packages($python_package)
 
   # If I'm using SELinux on Redhat, make sure the python binding is here.
   if ( ( $::selinux ) and ( $::os['family'] == 'RedHat' ) ) {
-    ensure_packages('libselinux-python', { 'ensure' => 'present' })
+    $python_selinux_package = $lsbdistcodename ? {
+        "Core"  => "python3-libselinux",
+        default => "libselinux-python",
+    }
+    ensure_packages("$python_selinux_package", { 'ensure' => 'present' })
   }
 }
