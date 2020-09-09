@@ -36,8 +36,8 @@ class ansible::target {
   # If I'm using SELinux on Redhat, make sure the python binding is here.
   if ( ( $::selinux ) and ( $::os['family'] == 'RedHat' ) ) {
     $python_selinux_package = $lsbdistcodename ? {
-        "Core", "Ootpa" => "python3-libselinux",
-        default         => "libselinux-python",
+        /(Core|Ootpa)/ => "python3-libselinux",
+        default        => "libselinux-python",
     }
     ensure_packages("$python_selinux_package", { 'ensure' => 'present' })
   }
