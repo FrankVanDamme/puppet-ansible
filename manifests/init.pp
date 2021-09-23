@@ -250,6 +250,9 @@
 #get their current IP information.
 #  @param [String] scp_if_ssh - Control the mechanism for transferring files
 #(old).
+#  @param [String] interpreter_python - Path to the Python interpreter to be
+#used for module execution on remote targets, or an automatic discovery mode.
+#Supported discovery modes are auto, auto_silent, and auto_legacy (the default).
 #  @param [Boolean] display_skipped_hosts - By default, ansible-playbook will
 #display "Skipping [host]" if it determines a task should not be run on a host.
 # Set this to "False" if you don't want to see these "Skipping" messages. NOTE:
@@ -752,6 +755,7 @@ Optional[Tuple] $network_group_modules,
 Optional[Float] $accelerate_connect_timeout,
 String $version,
 Stdlib::Absolutepath $confdir,
+String $interpreter_python,
 String $package_name,
 String $user,
 String $group,

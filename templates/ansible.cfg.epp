@@ -1,6 +1,10 @@
 # Managed by Puppet - do not modify
 
 [defaults]
+
+<%- if $ansible::interpreter_python { -%>
+interpreter_python = <%= $ansible::interpreter_python %>
+<% } -%>
 <%- if $ansible::inventory { -%>
 inventory = <%= $ansible::inventory %>
 <% } -%>

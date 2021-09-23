@@ -13,6 +13,15 @@ class ansible::config {
     mode   => '0755',
   }
 
+  $ansible_dirs = [ "${ansible::confdir}/inventories", "${ansible::confdir}/roles", 
+  "${ansible::confdir}/playbooks", "${ansible::confdir}/cicd"
+  ]
+
+  file { $ansible_dirs:
+    ensure => 'directory',
+    mode   => '0755',
+  }
+
   file { "${ansible::confdir}/ansible.cfg":
     ensure  => 'file',
     mode    => '0644',
