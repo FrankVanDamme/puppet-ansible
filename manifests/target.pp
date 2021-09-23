@@ -27,8 +27,8 @@ class ansible::target {
   # Make sure python is installed, or it's going to be a really short trip.
 
   $python_package = $lsbdistcodename ? {
-      "Core"  => "python3",
-      default => "python",
+      /(Core|Ootpa)/ => "python3",
+      default        => "python",
   }
 
   ensure_packages($python_package)
