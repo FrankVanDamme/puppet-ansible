@@ -28,7 +28,10 @@ class ansible::target {
 
   # n/a duidt op RedHat/CentOS 8: de distro codename is uit lsb info verdwenen
   $python_package = $lsbdistcodename ? {
+      # Red Hat
       /(Core|Ootpa|n\/a)/ => "python3",
+      # Debian
+      "bullseye"          => "python3",
       default             => "python",
   }
 
