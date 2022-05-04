@@ -27,13 +27,17 @@ class ansible::target {
   # Make sure python is installed, or it's going to be a really short trip.
 
   # n/a duidt op RedHat/CentOS 8: de distro codename is uit lsb info verdwenen
-  $python_package = $lsbdistcodename ? {
+  if ( $::operatingsystem == "Ubuntu" ){
+    $python_package = "python3"
+  } else {
+    $python_package = $lsbdistcodename ? {
       # Red Hat
       /(Core|n\/a)/ => "python3",
       "Ootpa"       => "python36",
       # Debian
       "bullseye"    => "python3",
       default       => "python",
+    }
   }
 
   ensure_packages($python_package)
