@@ -788,7 +788,16 @@ Boolean $use_dist_repo = false,
   # declarations of the ansible::add_to_group defined type.
   file { "${ansible::confdir}/hosts":
     ensure  => file,
-  } ->
-  Ini_setting <<| tag == 'ansible::add_to_group' |>>
+  }
 
+  file { "${ansible::confdir}/groups":
+      ensure => directory,
+  }
+
+  # explicitly created groups over automatic ones
+  Ansible::Group <<| tag != auto_group |>>
+  Ansible::Group <<| tag == auto_group |>>
+
+  # host members of groups
+  Concat::Fragment <<| tag == "ansible_group" |>>
 }

@@ -4,20 +4,30 @@
 # Declare this defined type on a target machine and it will be added to a
 # group on your controllers.  In fact, the ansible::target class declares this
 # defined type to add all targets to the "puppetized" group.
+#
+# Parameters:
+# *groupname*: namevar - name of group to add node to
+# *member*: name of node or element to add; defaults to fqdn.
+# These are mostly for internal use.
 
 define ansible::add_to_group (
-  String $group_name = $title,
+    String $groupname = $name,
+    String $member = $::fqdn,
 ) {
 
-  # The inventory file is described as "ini-file like" -- and it's got sections
-  # alright, but only keys, no values.  We can set the separator to a couple
-  # spaces, let value default to undef, and get something Ansible is okay with.
-  @@ini_setting { "add ${::fqdn} to '${group_name}' ansible group":
-    ensure            => present,
-    path              => '/etc/ansible/hosts',
-    section           => $group_name,
-    setting           => $::fqdn,
-    key_val_separator => '  ',
-  }
+    # we use fqdn in the name for the sole purpose of unicity (no duplicate exported resources)
 
+    @@concat::fragment { "ans_inv_add_${member}_to_${groupname}_on_${::fqdn}":
+        order   => 5,
+        content => "$member\n",
+        target  => "ans_inv_group_$groupname",
+        tag     => "ansible_group",
+    }
+
+    # auto create the group
+
+    @@ansible::group { "ans_inv_auto_create_${groupname}_on_${::fqdn}": 
+        groupname => $groupname,
+        tag       => auto_group,
+    }
 }

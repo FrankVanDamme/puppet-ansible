@@ -91,6 +91,40 @@ ansible::hosts { 'loadbalancers':
 }
 ```
 
+### Groups, members, and how to nest them
+
+A group can be created on your controller in the regular fashion:
+
+```
+ansible::group { "mariadb": }
+```
+
+On any node, add it to a group:
+
+```
+ansible::add_to_group { "postgres": }
+```
+
+If that group does not exist, it will be auto-created on the controller. You can still create it manually, eg. for the purpose of nesting groups. Just specify the groups you want a group to be a member of like this (still on the controller):
+
+```
+ansible::group { "mariadb":
+    child_of => [ "databases" ],
+}
+ansible::group { "mysql":
+    child_of => [ "database" ],
+}
+```
+
+will generate these groups:
+
+```
+[database:children]
+mysql
+[mysql:children]
+mariadb
+```
+
 ### Specific parameters to manage configuration file ansible.cfg
 
 ```puppet
