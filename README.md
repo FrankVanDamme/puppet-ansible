@@ -896,7 +896,7 @@ Optional.
 
 Data type: String.
 
-Description: Enable inventory plugins, default: 'host_list', 'script', 'yaml', 'ini'.
+Description: File system path to inventory.
 
 Default value: `undef`.
 

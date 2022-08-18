@@ -226,8 +226,7 @@
 #communicate between the module and the system. By default, the value is value
 #LANG on the controller or, if unset, en_US.UTF-8 (it used to be C in previous
 #versions).
-#  @param [String] inventory - Enable inventory plugins, default: 'host_list',
-#'script', 'yaml', 'ini'.
+#  @param [Stdlib::Absolutepath] inventory - File system path to inventory
 #  @param [String] hash_behaviour - If inventory variables overlap, does the
 #higher precedence one win or are hash values merged together?  The default is
 #'replace' but this can also be set to 'merge'.
