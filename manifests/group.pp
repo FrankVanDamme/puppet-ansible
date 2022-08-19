@@ -27,6 +27,8 @@ define ansible::group (
 
         concat { "ans_inv_group_$groupname":
             path    => "${ansible::confdir}/groups/$groupname",
+            # possibly sensitive data; this resource can also be used to define variables
+            show_diff => false,
         }
 
         # the group section heading
