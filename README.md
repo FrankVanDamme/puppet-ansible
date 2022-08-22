@@ -23,6 +23,11 @@ The ansible module installs and configures the Ansible across a range of operati
 ### What ansible affects
 This module affects the ansible package across multiple distributions, manages all the parameters of the ansible.cfg configuration file, adds and removes entries in the /etc/ansible/hosts inventory file.
 
+Added types also create files in the following directories:
+
+* `/etc/ansible/inventories/groups.d`
+* `/etc/ansible/inventories/hosts.d`
+
 ### Setup requirements
 * Puppet >= 4.10
 * Facter >= 2.0
@@ -91,6 +96,20 @@ ansible::hosts { 'loadbalancers':
 }
 ```
 
+### Host variables and dynamic hosts
+
+This, on a target node:
+
+```puppet
+ansible::hostvariable { "some_variable":
+  value => "foo",
+}
+```
+
+will add a variable to that host on your controller, and, if necessary, auto-create the host in `/etc/ansible/inventories/hosts.d/<hostname>`. 
+
+Note that this mechanism is separate from the ansible::hosts structure, which is entirely static.
+
 ### Groups, members, and how to nest them
 
 A group can be created on your controller in the regular fashion:
@@ -124,6 +143,11 @@ mysql
 [mysql:children]
 mariadb
 ```
+
+
+### File locations 
+
+
 
 ### Specific parameters to manage configuration file ansible.cfg
 

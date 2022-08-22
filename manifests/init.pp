@@ -784,14 +784,11 @@ Boolean $use_dist_repo = false,
     user    => 'ansible',
   }
 
-  # Ensure the inventory file exists, and populate groups based on targets'
+  # Ensure the inventory file exists, populate groups and gather host variables 
+  # based on targets'
   # declarations of the ansible::add_to_group defined type.
   file { "${ansible::confdir}/hosts":
     ensure  => file,
-  }
-
-  file { "${ansible::confdir}/groups":
-      ensure => directory,
   }
 
   # explicitly created groups over automatic ones
@@ -800,4 +797,9 @@ Boolean $use_dist_repo = false,
 
   # host members of groups
   Concat::Fragment <<| tag == "ansible_group" |>>
+  Concat::Fragment <<| tag == "ansible_host" |>>
+
+  # explicitly created hosts over automatic ones
+  Ansible::Host <<| tag != auto_host |>>
+  Ansible::Host <<| tag == auto_host |>>
 }
