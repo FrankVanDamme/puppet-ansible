@@ -15,7 +15,7 @@ class ansible::config {
 
   $ansible_dirs = [ "${ansible::confdir}/inventories", "${ansible::confdir}/roles", 
   "${ansible::confdir}/playbooks", "${ansible::confdir}/cicd", 
-  "${ansible::confdir}/groups.d",  "${ansible::confdir}/hosts.d"
+  "${ansible::confdir}/inventories/groups.d",  "${ansible::confdir}/inventories/hosts.d"
   ]
 
   file { $ansible_dirs:
