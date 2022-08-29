@@ -47,7 +47,8 @@ define ansible::group (
             # this should run only once
 
             if ( ! defined ( Ansible::Add_to_group["${groupname}_to_$parent:children"])){
-                @@ansible::group { "$parent:children_created_by_${groupname}":
+                # VIRTUAL resource, niet exported.
+                @ansible::group { "$parent:children_created_by_${groupname}":
                     groupname => "$parent:children",
                     tag       => auto_group,
                 }
