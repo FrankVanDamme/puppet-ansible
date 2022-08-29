@@ -793,6 +793,7 @@ Boolean $use_dist_repo = false,
 
   # explicitly created groups over automatic ones
   Ansible::Group <<| tag != auto_group |>>
+  Ansible::Group <<| tag == auto_group |>>
   Ansible::Group <| tag == auto_group |>
 
   # host members of groups
