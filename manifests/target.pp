@@ -27,10 +27,10 @@ class ansible::target {
   # Make sure python is installed, or it's going to be a really short trip.
 
   # n/a duidt op RedHat/CentOS 8: de distro codename is uit lsb info verdwenen
-  if ( $::operatingsystem == "Ubuntu" ){
+  if ( $facts[os][name] == "Ubuntu" ){
     $python_package = "python3"
   } else {
-    $python_package = $lsbdistcodename ? {
+    $python_package = $facts[os][distro][codename] ? {
       # Red Hat
       /(Core|n\/a)/ => "python3",
       "Ootpa"       => "python36",
@@ -43,7 +43,7 @@ class ansible::target {
   ensure_packages($python_package)
 
   # If I'm using SELinux on Redhat, make sure the python binding is here.
-  if ( ( $::selinux ) and ( $::os['family'] == 'RedHat' ) ) {
+  if ( ( $facts[os][selinux][enabled] ) and ( $facts[os][family] == 'RedHat' ) ) {
     # n/a duidt op RedHat/CentOS 8: de distro codename is uit lsb info verdwenen
     $python_selinux_package = $lsbdistcodename ? {
         /(Core|Ootpa|n\/a)/ => "python3-libselinux",

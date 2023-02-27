@@ -5,14 +5,14 @@ define ansible::hostvariable (
 ){
 
     $context_ = $context ? {
-        ''      => "${::fqdn}",
+        ''      => "${facts[networking][fqdn]}",
         default => "$context",
     }
     # $varlist = "$context_:vars"
 
     # fragment for variable
 
-    @@concat::fragment { "ans_inv_add_${variable}_to_${context}_on_${::fqdn}":
+    @@concat::fragment { "ans_inv_add_${variable}_to_${context}_on_${facts[networking][fqdn]}":
         order     => 5,
         content   => " $variable=$value",
         target    => "ans_inv_host_$context_",
@@ -21,7 +21,7 @@ define ansible::hostvariable (
 
     # auto create the host
 
-    @@ansible::host { "ans_inv_auto_create_${variable}_in_${context_}_on_${::fqdn}":
+    @@ansible::host { "ans_inv_auto_create_${variable}_in_${context_}_on_${facts[networking][fqdn]}":
         hostname => "${context_}",
         tag      => auto_host,
     }

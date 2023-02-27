@@ -3,7 +3,7 @@
 
 class ansible::install {
 
-  case $facts['operatingsystem'] {
+  case $facts[os][name] {
 
     'RedHat', 'CentOS', 'OracleLinux': {
 
@@ -31,7 +31,7 @@ class ansible::install {
 
     'Archlinux', 'Manjarolinux': {}
 
-    default: { fail("Your operating system \"${facts['operatingsystem']}\"is not supported.") }
+    default: { fail("Your operating system \"${facts[os][name]}\"is not supported.") }
 
   }
 
