@@ -31,6 +31,7 @@ class ansible::target {
     $python_package = "python3"
   } else {
     $python_package = $facts[os][distro][codename] ? {
+      undef         => "python3",
       # Red Hat
       /(Core|n\/a)/ => "python3",
       "Ootpa"       => "python36",
