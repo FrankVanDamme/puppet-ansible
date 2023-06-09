@@ -58,9 +58,10 @@ class ansible::target {
   # If I'm using SELinux on Redhat, make sure the python binding is here.
   if ( ( $facts[os][selinux][enabled] ) and ( $facts[os][family] == 'RedHat' ) ) {
     # n/a duidt op RedHat/CentOS 8: de distro codename is uit lsb info verdwenen
+    # Green Obsidian is Rocky 8
     $python_selinux_package = $facts[os][distro][codename] ? {
-        /(Core|Ootpa|n\/a)/ => "python3-libselinux",
-        default             => "libselinux-python",
+        /(Core|Ootpa|n\/a|Green Obsidian)/ => "python3-libselinux",
+        default                            => "libselinux-python",
     }
     ensure_packages($python_selinux_package, { 'ensure' => 'present' })
   }
