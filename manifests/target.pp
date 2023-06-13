@@ -59,9 +59,10 @@ class ansible::target {
   if ( ( $facts[os][selinux][enabled] ) and ( $facts[os][family] == 'RedHat' ) ) {
     # n/a duidt op RedHat/CentOS 8: de distro codename is uit lsb info verdwenen
     # Green Obsidian is Rocky 8
-    $python_selinux_package = $facts[os][distro][codename] ? {
-        /(Core|Ootpa|n\/a|Green Obsidian)/ => "python3-libselinux",
-        default                            => "libselinux-python",
+    $python_selinux_package = $facts[os][distro][release][major] ? {
+        '8'     => "python3-libselinux",
+        '9'     => "python3-libselinux",
+        default => "libselinux-python",
     }
     ensure_packages($python_selinux_package, { 'ensure' => 'present' })
   }
