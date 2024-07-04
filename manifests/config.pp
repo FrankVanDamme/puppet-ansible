@@ -14,13 +14,23 @@ class ansible::config {
   }
 
   $ansible_dirs = [ "${ansible::confdir}/inventories", "${ansible::confdir}/roles", 
-  "${ansible::confdir}/playbooks", "${ansible::confdir}/cicd", 
+  "${ansible::confdir}/playbooks", "${ansible::confdir}/cicd"
+  ]
+
+  $ansible_inventory_dirs = [
   "${ansible::confdir}/inventories/groups.d",  "${ansible::confdir}/inventories/hosts.d"
   ]
 
   file { $ansible_dirs:
-    ensure => 'directory',
-    mode   => '0755',
+    ensure  => 'directory',
+    mode    => '0755',
+  }
+
+  file { $ansible_inventory_dirs:
+    ensure  => 'directory',
+    mode    => '0755',
+    purge   => true,
+    recurse => true,
   }
 
   file { "${ansible::confdir}/ansible.cfg":
