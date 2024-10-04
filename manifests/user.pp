@@ -1,6 +1,6 @@
 # @api private
-
-
+#
+#
 class ansible::user (
 ){
     # Create an 'ansible' user
@@ -12,16 +12,17 @@ class ansible::user (
         home       => '/home/ansible',
     }
 
-    $sudo_user = $ansible::sudo_user ? {
-        undef   => "ALL",
-        default => "${ansible::sudo_user}",
+    if ( defined('$ansible::sudo_user') ){
+        $sudo_user=$ansible::sudo_user
+    } else {
+        $sudo_user = "ALL"
     }
 
     # if Ansible configuration is set to use sudo, we need a sudo rule to allow access
-    if ( $ansible::become_method == 'sudo' or $ansible::become_method == undef ) {
+    if ( ! defined('$ansible::become_method' ) or $ansible::become_method == 'sudo' ) {
         sudo::conf { 'ansible':
             priority => 20,
-            content  => "ansible ALL=( $sudo_user ) NOPASSWD: ALL\n",
+            content  => "ansible ALL=( ${sudo_user} ) NOPASSWD: ALL\n",
         }
     }
 
