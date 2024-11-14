@@ -773,14 +773,14 @@ Boolean $use_dist_repo = false,
 
   # We use a wrapper: so as not to try to create two key pairs on the Puppet
   # master with the same name in the same environment
-  @@sshkeys::create_key_wrapper{"ansible_$hostname": 
-      key_name => "ansible_$environment",
+  @@sshkeys::create_key_wrapper{"ansible_${facts['networking']['hostname']}":
+      key_name => "ansible_${environment}",
   }
 
   # installs the generated public and private SSH key pair in the Ansible
   # user's home directory
-  sshkeys::set_client_key_pair{"ansible@${hostname}":
-    keyname => "ansible_$environment",
+  sshkeys::set_client_key_pair{"ansible@${facts['networking']['hostname']}":
+    keyname => "ansible_${environment}",
     user    => 'ansible',
   }
 
