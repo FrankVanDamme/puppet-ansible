@@ -12,9 +12,11 @@ define ansible::hostvariable (
 
     # fragment for variable
 
+    $value_=shell_escape($value)
+
     @@concat::fragment { "ans_inv_add_${variable}_to_${context}_on_${facts[networking][fqdn]}":
         order     => 5,
-        content   => " $variable=$value",
+        content   => " $variable=$value_",
         target    => "ans_inv_host_$context_",
         tag       => "ansible_host",
     }
